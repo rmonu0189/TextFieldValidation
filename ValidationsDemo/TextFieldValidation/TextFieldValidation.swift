@@ -72,6 +72,8 @@ internal extension UITextField {
                 case let .range(min, max, message):
                     try rangeValidation(min: min, max: max, message: message)
                     
+                case let .filterWords(message):
+                    try wordFilteredValidation(message: message)
                 }
             }
         }
@@ -163,6 +165,13 @@ internal extension UITextField {
             if !(numeric >= min && numeric <= max) {
                 throw generateException(message)
             }
+        }
+    }
+    
+    private func wordFilteredValidation(message: String) throws {
+        print(text)
+        if let string = text, !string.isEmpty {
+            print(string)
         }
     }
     
