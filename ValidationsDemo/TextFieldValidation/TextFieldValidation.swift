@@ -169,7 +169,6 @@ internal extension UITextField {
         }
     }
     
-    //**
     private func wordFilteredValidation(message: String) throws {
         let wordsInText = text?.split(separator:" ");
         for word in wordsInText! {
