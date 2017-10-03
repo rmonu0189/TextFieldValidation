@@ -72,7 +72,13 @@ internal extension UITextField {
                 case let .range(min, max, message):
                     try rangeValidation(min: min, max: max, message: message)
                     
+                case let .filterMessageBase(message):
+                    try wordFilteredValidation(message: message)
+                    
+                case let .filterMessageExhaustive(message):
+                    try wordFullFilterValidation(message: message)
                 }
+                
             }
         }
         catch {
@@ -162,6 +168,37 @@ internal extension UITextField {
             
             if !(numeric >= min && numeric <= max) {
                 throw generateException(message)
+            }
+        }
+    }
+    
+    private func wordFilteredValidation(message: String) throws {
+        let wordsInText = text?.split(separator:" ");
+        for word in wordsInText! {
+            if ValidationPreferences.wordsForFilter.contains(String(word)){
+                throw generateException(message);
+            }
+        }
+    }
+    
+    private func wordFullFilterValidation(message: String) throws {
+        let regexPatternForSpecialChars = "\\W+"
+        let regexFilter = try! NSRegularExpression(pattern: regexPatternForSpecialChars, options: NSRegularExpression.Options.caseInsensitive)
+        let textRange = NSMakeRange(0, (text?.characters.count)!)
+        var textForFilter = regexFilter.stringByReplacingMatches(in: text!, options: [], range: textRange, withTemplate: "")
+        textForFilter = textForFilter.lowercased()
+        var wordsForFilterDictionary = [String : Bool]()
+        for word in ValidationPreferences.wordsForFilter {
+            wordsForFilterDictionary[String(word)] = true
+        }
+        for firstCharIndex in 0 ... textForFilter.characters.count {
+            for endCharIndex in firstCharIndex ... textForFilter.characters.count {
+                let startIndexForSubstring = textForFilter.index(textForFilter.startIndex, offsetBy: firstCharIndex)
+                let endIndexForSubstring = textForFilter.index(textForFilter.startIndex, offsetBy: endCharIndex)
+                let rangeForSubstring = startIndexForSubstring..<endIndexForSubstring
+                if wordsForFilterDictionary[textForFilter.substring(with: rangeForSubstring)] == true {
+                    throw generateException(message)
+                }
             }
         }
     }

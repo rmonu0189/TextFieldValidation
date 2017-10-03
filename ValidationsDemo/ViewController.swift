@@ -17,7 +17,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var ageTextField: UITextField!
     @IBOutlet weak var alphaNumericTextField: UITextField!
-        
+    @IBOutlet weak var wordFilterTextField: UITextField!
+    @IBOutlet weak var wordFilterThoroughTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,6 +51,8 @@ extension ViewController {
         requiredTextField.validations = [Validation.required(message: "Text field is required")]
         ageTextField.validations = [Validation.range(min: 18, max: 70, message: "Invalid age value")]
         alphaNumericTextField.validations = [Validation.alphaNumeric(message: "Invalid alphanumeric textfield value")]
+        wordFilterTextField.validations = [Validation.filterMessageBase(message: "Sorry these words are not allowed")]
+        wordFilterThoroughTextField.validations = [Validation.filterMessageExhaustive(message: "Sorry these words are not allowed")]
     }
     
     fileprivate func checkValidation() -> Bool{
@@ -60,6 +64,8 @@ extension ViewController {
             try requiredTextField.validate()
             try ageTextField.validate()
             try alphaNumericTextField.validate()
+            try wordFilterTextField.validate()
+            try wordFilterThoroughTextField.validate()
             return true
         }
         catch{

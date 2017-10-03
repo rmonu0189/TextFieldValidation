@@ -17,6 +17,8 @@ enum Validation {
     case characterRange(min:Int, max:Int, message: String)
     case alphaNumeric(message: String)            // Only allowed A-Z lower or upper case or blank space or numeric values.
     case range(min:Int, max:Int, message: String) // Range only apply on numeric values
+    case filterMessageBase(message: String)
+    case filterMessageExhaustive(message: String)
 }
 
 struct ValidationPreferences {
@@ -27,4 +29,5 @@ struct ValidationPreferences {
     static let passwordRegEx        = "(.{6,12})"
     static let domain               = "VALIDATIONFAILED"
     static let errorCode            = 501
+    static let wordsForFilter = [String]()
 }
