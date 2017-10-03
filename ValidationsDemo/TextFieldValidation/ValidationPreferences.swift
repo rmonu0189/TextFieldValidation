@@ -29,4 +29,5 @@ struct ValidationPreferences {
     static let passwordRegEx        = "(.{6,12})"
     static let domain               = "VALIDATIONFAILED"
     static let errorCode            = 501
+    static let wordsForFilter = [String]()
 }

@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 private var validationKey: UInt8 = 0
-private var wordsForFilter = [String]()
 
 internal extension UITextField {
     
@@ -176,7 +175,7 @@ internal extension UITextField {
     private func wordFilteredValidation(message: String) throws {
         let wordsInText = text?.split(separator:" ");
         for word in wordsInText! {
-            if wordsForFilter.contains(String(word)){
+            if ValidationPreferences.wordsForFilter.contains(String(word)){
                 throw generateException(message);
             }
         }
@@ -188,9 +187,8 @@ internal extension UITextField {
         let textRange = NSMakeRange(0, (text?.characters.count)!)
         var textForFilter = regexFilter.stringByReplacingMatches(in: text!, options: [], range: textRange, withTemplate: "")
         textForFilter = textForFilter.lowercased()
-        
         var wordsForFilterDictionary = [String : Bool]()
-        for word in wordsForFilter {
+        for word in ValidationPreferences.wordsForFilter {
             wordsForFilterDictionary[String(word)] = true
         }
         for firstCharIndex in 0 ... textForFilter.characters.count {
