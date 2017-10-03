@@ -17,7 +17,8 @@ enum Validation {
     case characterRange(min:Int, max:Int, message: String)
     case alphaNumeric(message: String)            // Only allowed A-Z lower or upper case or blank space or numeric values.
     case range(min:Int, max:Int, message: String) // Range only apply on numeric values
-    case filterWords(message: String)
+    case filterMessageBase(message: String)
+    case filterMessageExhaustive(message: String)
 }
 
 struct ValidationPreferences {

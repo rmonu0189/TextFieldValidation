@@ -50,7 +50,8 @@ extension ViewController {
         requiredTextField.validations = [Validation.required(message: "Text field is required")]
         ageTextField.validations = [Validation.range(min: 18, max: 70, message: "Invalid age value")]
         alphaNumericTextField.validations = [Validation.alphaNumeric(message: "Invalid alphanumeric textfield value")]
-        wordFilterTextField.validations = [Validation.filterWords(message: "Sorry these words are not allowed")]
+        //wordFilterTextField.validations = [Validation.filterMessageBase(message: "Sorry these words are not allowed")]
+        wordFilterTextField.validations = [Validation.filterMessageExhaustive(message: "Sorry these words are not allowed")]
     }
     
     fileprivate func checkValidation() -> Bool{
@@ -59,7 +60,7 @@ extension ViewController {
             try emailTextField.validate()
             try mobileTextField.validate()
             try passwordTextField.validate()
-            try requiredTextField.validate()
+            //try requiredTextField.validate()
             try ageTextField.validate()
             try alphaNumericTextField.validate()
             try wordFilterTextField.validate()
