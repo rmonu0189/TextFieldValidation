@@ -50,7 +50,6 @@ extension ViewController {
         requiredTextField.validations = [Validation.required(message: "Text field is required")]
         ageTextField.validations = [Validation.range(min: 18, max: 70, message: "Invalid age value")]
         alphaNumericTextField.validations = [Validation.alphaNumeric(message: "Invalid alphanumeric textfield value")]
-        
         wordFilterTextField.validations = [Validation.filterWords(message: "Sorry these words are not allowed")]
     }
     
@@ -63,6 +62,7 @@ extension ViewController {
             try requiredTextField.validate()
             try ageTextField.validate()
             try alphaNumericTextField.validate()
+            try wordFilterTextField.validate()
             return true
         }
         catch{

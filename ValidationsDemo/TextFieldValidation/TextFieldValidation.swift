@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 private var validationKey: UInt8 = 0
+private var wordsForFilter = [String]()
 
 internal extension UITextField {
     
@@ -168,10 +169,13 @@ internal extension UITextField {
         }
     }
     
+    //**
     private func wordFilteredValidation(message: String) throws {
-        print(text)
-        if let string = text, !string.isEmpty {
-            print(string)
+        let wordsInText = text?.split(separator:" ");
+        for word in wordsInText! {
+            if wordsForFilter.contains(String(word)){
+                throw generateException(message);
+            }
         }
     }
     
